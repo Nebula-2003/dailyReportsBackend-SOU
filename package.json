@@ -4,10 +4,10 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "start": "pm2 start ecosystem.config.cjs",
-        "restart": "pm2 restart ecosystem.config.cjs",
-        "stop": "pm2 stop ecosystem.config.cjs",
-        "delete": "pm2 delete ecosystem.config.cjs",
+        "start": "pm2 start ecosystem.config.cjs --env local && pm2 logs --env local",
+        "restart": "pm2 restart ecosystem.config.cjs --env local",
+        "stop": "pm2 stop ecosystem.config.cjs --env local",
+        "delete": "pm2 delete ecosystem.config.cjs  --env local",
         "build": "babel src -d dist"
     },
     "dependencies": {
@@ -38,7 +38,6 @@
         "nodemon": "^2.0.4",
         "passport": "^0.4.1",
         "passport-custom": "^1.1.1",
-        "pm2": "^5.1.0",
         "stripe": "^8.150.0",
         "uuid": "^8.3.2",
         "winston": "^3.3.3"
