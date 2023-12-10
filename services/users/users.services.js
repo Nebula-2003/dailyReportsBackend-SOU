@@ -1,22 +1,26 @@
 import { commonResponse } from "../../helper/index.js";
 import UsersModel from "./users.model.js";
 
-export const is_exist = async (reqBody) => {
-    return await UsersModel.findOne({ email: reqBody.email }).lean();
-};
+class UsersService {
+    static async is_exist(reqBody) {
+        return await UsersModel.findOne({ email: reqBody.email }).lean();
+    }
 
-export const get = async (id) => {
-    return await UsersModel.findOne({ _id: id }).lean();
-};
+    static async get(id) {
+        return await UsersModel.findOne({ _id: id }).lean();
+    }
 
-export const save = async (reqBody) => {
-    return await new UsersModel(reqBody).save();
-};
+    static async save(reqBody) {
+        return await new UsersModel(reqBody).save();
+    }
 
-export const update = async (id, reqBody) => {
-    return await UsersModel.findOneAndUpdate({ _id: id }, { $set: reqBody }, { new: true }).lean();
-};
+    static async update(id, reqBody) {
+        return await UsersModel.findOneAndUpdate({ _id: id }, { $set: reqBody }, { new: true }).lean();
+    }
 
-export const remove = async (id) => {
-    return await UsersModel.removeOne({ _id: id }, { new: true }).lean();
-};
+    static async remove(id) {
+        return await UsersModel.removeOne({ _id: id }, { new: true }).lean();
+    }
+}
+
+export default UsersService;
