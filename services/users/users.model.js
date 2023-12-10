@@ -35,7 +35,7 @@ const usersSchema = new Schema(
         },
         role: {
             type: String,
-            enum: [ROLE.ADMIN, ROLE.HOD, ROLE.TEACHING_STAFF],
+            enum: Object.values(ROLE),
             default: ROLE.TEACHING_STAFF,
             required: false,
         },
@@ -51,7 +51,7 @@ const usersSchema = new Schema(
         },
         device_type: {
             type: String,
-            enum: [DEVICE_TYPE.ANDROID, DEVICE_TYPE.IOS],
+            enum: Object.values(DEVICE_TYPE),
             default: DEVICE_TYPE.ANDROID,
             required: false,
         },
@@ -66,7 +66,7 @@ const usersSchema = new Schema(
         },
         status: {
             type: String,
-            enum: [STATUS.VERIFIED, STATUS.PENDING, STATUS.DEACTIVATED],
+            enum: Object.values(STATUS),
             default: STATUS.PENDING,
             required: false,
         },
