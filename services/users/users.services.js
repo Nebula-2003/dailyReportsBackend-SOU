@@ -9,7 +9,9 @@ class UsersService {
     static async get(id) {
         return await UsersModel.findOne({ _id: id }).lean();
     }
-
+    static async findOneByQuery(query) {
+        return await UsersModel.findOne(query).lean();
+    }
     static async save(reqBody) {
         return await new UsersModel(reqBody).save();
     }
