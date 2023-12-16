@@ -1,4 +1,4 @@
-import taskMasterRoutes from './taskMaster.routes';
-import taskMasterServices from './taskMaster.services';
+import taskMasterRoutes from "./taskMaster.routes.js";
+import taskMasterServices from "./taskMaster.services.js";
 
-export default  {taskMasterRoutes , taskMasterServices}
+export default { taskMasterRoutes, taskMasterServices };

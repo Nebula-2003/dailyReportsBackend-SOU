@@ -1,4 +1,4 @@
-import timeSheetRoutes from './timeSheet.routes';
-import timeSheetServices from './timeSheet.services';
+import timeSheetRoutes from './timeSheet.routes.js';
+import timeSheetServices from './timeSheet.services.js';
 
 export default  {timeSheetRoutes , timeSheetServices}
