@@ -6,6 +6,7 @@ import logger from "morgan";
 import winston from "winston";
 import cors from "cors";
 import fetch from "node-fetch";
+import fileUpload from "express-fileupload";
 
 import * as commonResponse from "./helper/commonResponse.js";
 import * as indexRouter from "./routes/index.js";
@@ -51,6 +52,7 @@ app.set("view engine", "ejs");
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(fileUpload());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
