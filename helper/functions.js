@@ -38,7 +38,7 @@ const encryptStringCrypt = async (string_value) => {
     return encryptedString;
 };
 
-const CryptrdecryptStringCrypt = async (string_value) => {
+const cryptrDecryptStringCrypt = async (string_value) => {
     let decryptedString = cryptr.decrypt(string_value);
     return decryptedString;
 };
@@ -48,4 +48,4 @@ const matchPassword = async (password, encryptedPassword) => {
     return decryptedString === password;
 };
 
-export { randomSixDigit, replaceNullToBlankString, formatNumber, encryptStringCrypt, CryptrdecryptStringCrypt, matchPassword };
+export { randomSixDigit, replaceNullToBlankString, formatNumber, encryptStringCrypt, cryptrDecryptStringCrypt, matchPassword };

@@ -22,21 +22,9 @@ class UsersController {
 
             req.body.password = await commonFunctions.encryptStringCrypt(req.body.password);
 
-            //req.body.otp = await commonFunctions.randomSixDigit();
-            req.body.otp = "123456";
             let user = await UsersService.save(req.body);
 
             if (user) {
-                /* Send Account Verification Link */
-                let emailData = {
-                    to: user.email,
-                    subject: "Boiler-plat || Account Verification OTP",
-                    text: `Your account verification Link Is ${user.otp}`,
-                    html: `<h1> Boiler-plat </h1>
-                            <p>Your account verification OTP is :  ${user.otp}</b></p>`,
-                };
-                // nodemailer.sendMail(emailData);
-
                 let getUser = await UsersService.get(user._id);
                 return commonResponse.success(
                     res,
@@ -58,47 +46,32 @@ class UsersController {
      *  Login
      */
     static async login(req, res, next) {
-        passport.authenticate("user", async function (err, user, info) {
-            if (err) {
-                var err = err;
-                err.status = 400;
-                return next(err);
-            }
+        try {
+            const { email, password } = req.body;
+            console.log("🚀 ~ file: users.controller.js:51 ~ UsersController ~ login ~ req.body:", req.body);
+            const user = await UsersService.findOneByQuery({ email });
 
-            if (info) {
-                var err = new Error("MISSING_CREDENTIALS");
-                err.status = 400;
-                return next(err);
-            }
-
-            if (user) {
-                if (user.status == STATUS.PENDING) {
-                    return commonResponse.customResponse(res, "USER_NOT_VERIFIED", 401, user, "Please verify your email to login");
-                }
-                if (user.status == STATUS.DEACTIVATED) {
-                    return commonResponse.customResponse(
-                        res,
-                        "USER_DEACTIVATED",
-                        404,
-                        user,
-                        "Your account has been deactivated, Please contact admin to activate your account"
-                    );
-                }
-
-                // await UsersService.update(user._id, {
-                //     fcm_token: req.body.fcm_token ? req.body.fcm_token : "",
-                //     device_type: req.body.device_type ? req.body.device_type : "android",
-                //     device_id: req.body.device_id ? req.body.device_id : "",
-                // });
-
-                let userResponse = await UsersService.get(user._id);
-                const token = await guard.createToken(user, userResponse.role);
-                userResponse.token = token.token;
-                return commonResponse.success(res, "LOGIN_SUCCESS", 202, userResponse);
-            } else {
+            if (!user) {
                 return commonResponse.customResponse(res, "USER_NOT_FOUND", 404, {}, "User not found");
             }
-        })(req, res, next);
+
+            const isPasswordValid = password === (await commonFunctions.cryptrDecryptStringCrypt(user.password));
+            console.log(
+                "🚀 ~ file: users.controller.js:59 ~ UsersController ~ login ~ commonFunctions.cryptrDecryptStringCrypt(user.password):",
+                commonFunctions.cryptrDecryptStringCrypt(user.password)
+            );
+
+            if (!isPasswordValid) {
+                return commonResponse.customResponse(res, "INVALID_PASSWORD", 400, {}, "Invalid password");
+            }
+
+            const token = guard.createToken(user);
+
+            return commonResponse.success(res, "LOGIN_SUCCESS", 202, { token });
+        } catch (error) {
+            console.log("Login Error -> ", error);
+            return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
+        }
     }
 
     /*
