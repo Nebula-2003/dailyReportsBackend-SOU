@@ -1,10 +1,10 @@
 import Service from "./timeSheet.services.js";
 
-class timeSheet{
+class timeSheet {
     /**
      * Add
      */
-    static async create (req, res, next) {
+    static async create(req, res, next) {
         try {
             let data = await Service.add(req.body);
             if (data) {
@@ -85,6 +85,6 @@ class timeSheet{
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
         }
     }
-};
+}
 
 export default timeSheet;

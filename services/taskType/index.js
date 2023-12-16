@@ -1,4 +1,4 @@
-import taskTypeRoutes from './taskType.routes';
-import taskTypeServices from './taskType.services';
+import taskTypeRoutes from './taskType.routes.js';
+import taskTypeServices from './taskType.services.js';
 
 export default  {taskTypeRoutes , taskTypeServices}
