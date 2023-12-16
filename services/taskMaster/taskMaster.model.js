@@ -3,19 +3,20 @@ import softDelete from "mongoosejs-soft-delete";
 
 const Schema = mongoose.Schema;
 
-const taskTypeSchema = new Schema(
+const taskMasterSchema = new Schema(
     {
-        name: { type: String, required: true },
+        task: { type: String, required: true },
         description: { type: String, required: true },
+        type: { type: Schema.Types.ObjectId, ref: "taskType" },
         status: { type: String, required: true, default: "active" },
         createdBy: { type: Schema.Types.ObjectId, ref: "user" },
         updatedBy: { type: Schema.Types.ObjectId, ref: "user" },
     },
-    { timestamps: true, collection: "taskType" }
+    { timestamps: true, collection: "taskMaster" }
 );
 
-taskTypeSchema.plugin(softDelete);
+taskMasterSchema.plugin(softDelete);
 
-const TaskType = mongoose.model("taskType", taskTypeSchema);
+const TaskMaster = mongoose.model("taskMaster", taskMasterSchema);
 
-export default TaskType;
+export default TaskMaster;
