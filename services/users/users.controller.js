@@ -1,5 +1,6 @@
 import UsersService from "./users.services.js";
 import passport from "passport";
+import path from "path";
 import * as guard from "../../helper/guards.js";
 import { commonResponse, commonFunctions, nodemailer, fileUpload } from "../../helper/index.js";
 import { STATUS } from "../../config/constant.config.js";
@@ -17,7 +18,8 @@ class UsersController {
             }
 
             if (req.files != undefined && req.files.image != undefined) {
-                req.body.image = fileUpload.uploadFile("user-profile",req.files.image);
+                let location = fileUpload.uploadFile("user-profile", req.files.image);
+                req.body.image = `/storage/${location}`;
             }
 
             req.body.password = await commonFunctions.encryptStringCrypt(req.body.password);
@@ -26,13 +28,7 @@ class UsersController {
 
             if (user) {
                 let getUser = await UsersService.get(user._id);
-                return commonResponse.success(
-                    res,
-                    "USER_CREATED",
-                    201,
-                    getUser,
-                    "We have sent account verification OTP to your email, Please verify your account to continue"
-                );
+                return commonResponse.success(res, "USER_CREATED", 201, getUser, "User created successfully");
             } else {
                 return commonResponse.customResponse(res, "SERVER_ERROR", 400, user, "Something went wrong, Please try again");
             }
