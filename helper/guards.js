@@ -19,9 +19,9 @@ const createToken = (user, type = "user") => {
 const verifyJWT = (req, res) => {
     try {
         const token = req.headers.authorization.replace("Bearer", "").trim();
-        console.log(token);
-        const userInfo = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = userInfo;
+        // console.log(token);
+        const { data } = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = data;
         return 1;
     } catch (error) {
         return 0;
@@ -30,7 +30,7 @@ const verifyJWT = (req, res) => {
 
 const isAuthorized = (users) => async (req, res, next) => {
     const isVerify = verifyJWT(req, res);
-    console.log("Users : ", users);
+    // console.log("Users : ", users);
     if (isVerify) {
         const user = await Users.findById({ _id: req.user.id });
 
@@ -38,7 +38,7 @@ const isAuthorized = (users) => async (req, res, next) => {
             return commonResponse.unAuthentication(res, {}, "USER_NOT_FOUND");
         }
 
-        const allowedRoles = ["landlord", "tenant", "admin"];
+        const allowedRoles = ["hod", "teaching_staff", "admin"];
         const role = req.user.role;
 
         if (users.some((role) => allowedRoles.includes(role))) {
