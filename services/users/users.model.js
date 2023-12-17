@@ -64,12 +64,6 @@ const usersSchema = new Schema(
             type: Boolean,
             default: true,
         },
-        status: {
-            type: String,
-            enum: Object.values(STATUS),
-            default: STATUS.PENDING,
-            required: false,
-        },
     },
     { timestamps: true }
 );
