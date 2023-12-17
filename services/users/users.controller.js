@@ -66,8 +66,9 @@ class UsersController {
             }
 
             const token = guard.createToken(user);
+            delete user.password;
 
-            return commonResponse.success(res, "LOGIN_SUCCESS", 202, { token });
+            return commonResponse.success(res, "LOGIN_SUCCESS", 202, { user, token });
         } catch (error) {
             console.log("Login Error -> ", error);
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
