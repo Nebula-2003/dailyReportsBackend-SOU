@@ -1,34 +1,33 @@
-import controller from"./timeSheet.controller.js"
+import controller from "./timeSheet.controller.js";
 import { Router } from "express";
-// import { guard } from "../../helper";
+import { guard } from "../../helper/index.js";
 
 const router = Router();
 
-
 router
     /*
-    *  Add
-    */
+     *  Add
+     */
     .post("/create", controller.create)
 
     /*
-    *  Get By Id
-    */
+     *  Get By Id
+     */
     .get("/get/:id", controller.get)
 
     /*
-    *  List All
-    */
-    .get("/list", controller.list)
+     *  List All
+     */
+    .get("/list", guard.isAuthorized(["admin", "hod", "teaching_staff"]), controller.list)
 
     /*
-    *  Update
-    */
+     *  Update
+     */
     .put("/update/:id", controller.update)
 
     /*
-    *  Delete
-    */
+     *  Delete
+     */
     .delete("/delete/:id", controller.delete);
 
 export default router;

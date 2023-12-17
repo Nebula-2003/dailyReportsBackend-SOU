@@ -1,5 +1,6 @@
 import Service from "./timeSheet.services.js";
 import { commonResponse } from "../../helper/index.js";
+import { subjectWise } from "./timeSheet.db.aggregation.js";
 
 class timeSheet {
     /**
@@ -41,10 +42,15 @@ class timeSheet {
 
     static async list(req, res, next) {
         try {
-            let query = {};
-            let listAll = await Service.list(query);
-            if (listAll) {
-                return commonResponse.success(res, "TIME_SHEET_GET", 200, listAll, "Success");
+            let list;
+            if (req.query.aggregate === "subjectWise") {
+                list = await Service.aggregate(subjectWise(req.user.id));
+            } else {
+                list = await Service.list();
+            }
+
+            if (list) {
+                return commonResponse.success(res, "TIME_SHEET_GET", 200, list, "Success");
             } else {
                 return commonResponse.customResponse(res, "SERVER_ERROR", 400, {}, "Something went wrong, Please try again");
             }
