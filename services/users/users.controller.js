@@ -1,7 +1,7 @@
 import UsersService from "./users.services.js";
 import passport from "passport";
 import * as guard from "../../helper/guards.js";
-import { commonResponse, commonFunctions, nodemailer } from "../../helper/index.js";
+import { commonResponse, commonFunctions, nodemailer, fileUpload } from "../../helper/index.js";
 import { STATUS } from "../../config/constant.config.js";
 
 class UsersController {
@@ -17,7 +17,7 @@ class UsersController {
             }
 
             if (req.files != undefined && req.files.image != undefined) {
-                req.body.image = process.env.DOMAIN_URL + "/user-profile/" + req.files.image[0].filename;
+                req.body.image = fileUpload.uploadFile("user-profile",req.files.image);
             }
 
             req.body.password = await commonFunctions.encryptStringCrypt(req.body.password);
