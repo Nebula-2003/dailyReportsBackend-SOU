@@ -12,3 +12,5 @@ export const DEVICE_TYPE = {
     ANDROID: "android",
     IOS: "ios",
 };
+
+export const STORAGE_PATH = "public/storage";
