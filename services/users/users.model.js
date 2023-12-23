@@ -39,6 +39,11 @@ const usersSchema = new Schema(
             default: ROLE.TEACHING_STAFF,
             required: false,
         },
+        hod: {
+            type: Schema.Types.ObjectId,
+            ref: "Users",
+            required: false,
+        },
         otp: {
             type: Number,
             required: false,

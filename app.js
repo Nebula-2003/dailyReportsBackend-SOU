@@ -5,7 +5,6 @@ import cookieParser from "cookie-parser";
 import logger from "morgan";
 import winston from "winston";
 import cors from "cors";
-import fetch from "node-fetch";
 import fileUpload from "express-fileupload";
 
 import * as commonResponse from "./helper/commonResponse.js";

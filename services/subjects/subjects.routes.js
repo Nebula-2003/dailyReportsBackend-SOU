@@ -1,16 +1,19 @@
 import { Router } from "express";
 import controller from "./subjects.controller.js";
+import * as guard from "./../../helper/guards.js";
+import { ROLE } from "./../../config/constant.config.js";
 
 const router = Router();
 
-router.get("/subject-list", controller.getList);
+router
+    .get("/subject-list", guard.isAuthorized(Object.values(ROLE)), controller.getList)
 
-router.get("/subject-detail/:id", controller.get);
+    .get("/subject-detail/:id", guard.isAuthorized(Object.values(ROLE)), controller.get)
 
-router.post("/create-subject", controller.create);
+    .post("/create-subject", guard.isAuthorized(Object.values(ROLE)), controller.create)
 
-router.put("/update-subject/:id", controller.update);
+    .put("/update-subject/:id", guard.isAuthorized(Object.values(ROLE)), controller.update)
 
-router.delete("/delete-subject/:id", controller.delete);
+    .delete("/delete-subject/:id", guard.isAuthorized(Object.values(ROLE)), controller.delete);
 
 export default router;
