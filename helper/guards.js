@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import * as commonResponse from "./commonResponse.js";
-import Users from "../services/users/users.model.js";
+import Users from "../services/users/users.services.js";
+// import
 
 const createToken = (user, type = "user") => {
     let payload = {};
@@ -30,9 +31,8 @@ const verifyJWT = (req, res) => {
 
 const isAuthorized = (users) => async (req, res, next) => {
     const isVerify = verifyJWT(req, res);
-    // console.log("Users : ", users);
     if (isVerify) {
-        const user = await Users.findById({ _id: req.user.id });
+        const user = await Users.get(req.user.id);
 
         if (!user) {
             return commonResponse.unAuthentication(res, {}, "USER_NOT_FOUND");

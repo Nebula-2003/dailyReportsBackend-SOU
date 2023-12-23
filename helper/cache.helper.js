@@ -10,6 +10,19 @@ NodeCache.prototype.getByObj = function (obj) {
     return this.get(key);
 };
 
+NodeCache.prototype.getByQuery = function (criteria) {
+    const keys = filterCacheKeys(this, criteria);
+    if (keys.length === 0) {
+        return;
+    }
+    let cData = this.mget(keys);
+    cData = new Array(cData);
+    // console.log("🚀 ~ file: cache.helper.js:19 ~ keys:", keys);
+    // console.log("🚀 ~ file: cache.helper.js:19 ~ cData:", cData);
+    // console.log("🚀 ~ file: cache.helper.js:24 ~ cData.length > 1 ? null : cData[0]:", cData.length > 1 ? null : cData[0]);
+    return cData.length > 1 ? null : Object.values(cData[0])[0];
+};
+
 NodeCache.prototype.delByObjExact = function (obj) {
     const key = JSON.stringify(sortObjectKeys(obj));
     return this.del(key);
@@ -46,6 +59,5 @@ function sortObjectKeys(obj) {
             return result;
         }, {});
 }
-
 
 export default NodeCache;

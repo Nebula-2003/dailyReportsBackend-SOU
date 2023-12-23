@@ -2,11 +2,13 @@ import { Router } from "express";
 import controller from "./users.controller.js";
 import * as guard from "./../../helper/guards.js";
 import { ROLE } from "./../../config/constant.config.js";
+import { userSchema, updateUserSchema } from "./users.validator.js";
+import { validateBody } from "./../../helper/validation.js";
 
 const router = Router();
 
 router
-    .post("/register", controller.register)
+    .post("/register", validateBody(userSchema), controller.register)
 
     .post("/login", controller.login)
 
@@ -18,16 +20,16 @@ router
 
     .post("/reset-password", controller.resetPassword)
 
-    // .put("/update", multerSetting, guard.isAuthorized(["admin", "organizer", "player"]), controller.update)
+    .put("/update", validateBody(updateUserSchema), guard.isAuthorized(Object.values(ROLE)), controller.update)
 
-    .delete("/delete/:id", guard.isAuthorized(["admin"]), controller.delete)
+    .delete("/delete/:id", guard.isAuthorized(ROLE.ADMIN), controller.delete)
 
-    .post("/change-password", guard.isAuthorized(["admin", "organizer", "player"]), controller.changePassword)
+    .post("/change-password", guard.isAuthorized(Object.values(ROLE)), controller.changePassword)
 
-    .get("/get-profile", guard.isAuthorized(["admin", "organizer", "player"]), controller.get)
+    .get("/get-profile", guard.isAuthorized(Object.values(ROLE)), controller.get)
 
-    .get("/get/:id", guard.isAuthorized(["admin", "organizer", "player"]), controller.getUserById)
+    .get("/get/:id", guard.isAuthorized(Object.values(ROLE)), controller.getUserById)
 
-    .post("/logout", guard.isAuthorized(["admin", "organizer", "player"]), controller.logout);
+    .post("/logout", guard.isAuthorized(Object.values(ROLE)), controller.logout);
 
 export default router;

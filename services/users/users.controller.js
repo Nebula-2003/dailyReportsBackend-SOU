@@ -44,29 +44,18 @@ class UsersController {
     static async login(req, res, next) {
         try {
             const { email, password } = req.body;
-            console.log("🚀 ~ file: users.controller.js:51 ~ UsersController ~ login ~ req.body:", req.body);
             const user = await UsersService.findOneByQuery({ email });
-
             if (!user) {
                 return commonResponse.customResponse(res, "USER_NOT_FOUND", 404, {}, "User not found");
             }
-
             const isPasswordValid = password === (await commonFunctions.cryptrDecryptStringCrypt(user.password));
-            console.log(
-                "🚀 ~ file: users.controller.js:59 ~ UsersController ~ login ~ commonFunctions.cryptrDecryptStringCrypt(user.password):",
-                commonFunctions.cryptrDecryptStringCrypt(user.password)
-            );
-
             if (!isPasswordValid) {
                 return commonResponse.customResponse(res, "INVALID_PASSWORD", 400, {}, "Invalid password");
             }
-
             const token = guard.createToken(user);
             delete user.password;
-
             return commonResponse.success(res, "LOGIN_SUCCESS", 202, { user, token });
         } catch (error) {
-            console.log("Login Error -> ", error);
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
         }
     }

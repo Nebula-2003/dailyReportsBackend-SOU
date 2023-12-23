@@ -13,6 +13,8 @@ const timeSheetSchema = new Schema(
         hours: { type: Number, required: true },
         description: { type: String, required: true },
         status: { type: String, required: true },
+        startTime: { type: Date, required: true },
+        endTime: { type: Date, required: true },
     },
     { timestamps: true, collection: "timeSheet" }
 );
