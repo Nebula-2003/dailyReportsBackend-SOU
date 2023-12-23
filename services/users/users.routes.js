@@ -18,7 +18,7 @@ router
 
     .post("/reset-password", controller.resetPassword)
 
-    .put("/update", multerSetting, guard.isAuthorized(["admin", "organizer", "player"]), controller.update)
+    // .put("/update", multerSetting, guard.isAuthorized(["admin", "organizer", "player"]), controller.update)
 
     .delete("/delete/:id", guard.isAuthorized(["admin"]), controller.delete)
 

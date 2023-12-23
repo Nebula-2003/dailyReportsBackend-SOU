@@ -1,11 +1,12 @@
 import Service from "./taskMaster.services.js";
 import { commonResponse } from "../../helper/index.js";
+import { taskMasterCacheList } from "./taskMaster.cache.js";
 
-class taskMaster{
+class taskMaster {
     /**
      * Add
      */
-    static async create (req, res, next) {
+    static async create(req, res, next) {
         try {
             let data = await Service.add(req.body);
             if (data) {
@@ -42,12 +43,13 @@ class taskMaster{
     static async list(req, res, next) {
         try {
             let query = {};
+
             let listAll = await Service.list(query);
-            if (listAll) {
-                return commonResponse.success(res, "TASK_MASTER_GET", 200, listAll, "Success");
-            } else {
+            if (!listAll) {
                 return commonResponse.customResponse(res, "SERVER_ERROR", 400, {}, "Something went wrong, Please try again");
             }
+
+            return commonResponse.success(res, "TASK_MASTER_GET", 200, listAll, "Success");
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
         }
@@ -86,6 +88,6 @@ class taskMaster{
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
         }
     }
-};
+}
 
 export default taskMaster;

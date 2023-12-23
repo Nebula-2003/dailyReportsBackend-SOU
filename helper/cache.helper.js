@@ -1,4 +1,3 @@
-
 import NodeCache from "node-cache";
 
 NodeCache.prototype.setByObj = function (obj, val, ttl) {
@@ -45,7 +44,8 @@ function sortObjectKeys(obj) {
         .reduce((result, key) => {
             result[key] = obj[key];
             return result;
-    },{});s
+        }, {});
 }
+
 
 export default NodeCache;
