@@ -69,6 +69,13 @@ const usersSchema = new Schema(
             type: Boolean,
             default: true,
         },
+        subjects: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Subjects",
+                required: false,
+            },
+        ],
     },
     { timestamps: true }
 );

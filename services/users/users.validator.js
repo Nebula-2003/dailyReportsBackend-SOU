@@ -17,6 +17,7 @@ const userSchema = Joi.object({
         .default(DEVICE_TYPE.ANDROID),
     device_id: Joi.string().default(""),
     is_notification_on: Joi.boolean().default(true),
+    subjects: Joi.array().items(Joi.string()),
 });
 
 const updateUserSchema = Joi.object({
@@ -32,6 +33,7 @@ const updateUserSchema = Joi.object({
     device_type: Joi.string().valid(...Object.values(DEVICE_TYPE)),
     device_id: Joi.string().default(""),
     is_notification_on: Joi.boolean(),
+    subjects: Joi.array().items(Joi.string()),
 });
 
 export { userSchema, updateUserSchema };
