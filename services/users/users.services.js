@@ -75,9 +75,13 @@ class UsersService {
             console.log(e);
         }
         if (reqBody.image) {
-            let user = await UsersModel.findOne({ _id: id }).lean();
-            if (user.image) {
-                fs.unlinkSync(path.join(__dirname, "./../../public", user.image));
+            try {
+                let user = await UsersModel.findOne({ _id: id }).lean();
+                if (user.image) {
+                    fs.unlinkSync(path.join(__dirname, "./../../public", user.image));
+                }
+            } catch (error) {
+                logger.error(error);
             }
         }
         const data = await UsersModel.findOneAndUpdate({ _id: id }, { $set: reqBody }, { new: true }).lean();
@@ -98,13 +102,6 @@ class UsersService {
             console.log(e);
         }
         const data = await UsersModel.removeOne({ _id: id }, { new: true }).lean();
-        if (data) {
-            try {
-                cacheUsers.setByObj({ _id: data._id, email: data.email }, data);
-            } catch (error) {
-                logger.error(error);
-            }
-        }
         return data;
     }
 }
