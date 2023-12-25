@@ -4,7 +4,8 @@ import { commonResponse } from "../../helper/index.js";
 class subjectsController {
     static async getList(req, res, next) {
         try {
-            const subjects = await SubjectsServices.getList();
+            let query = {};
+            const subjects = await SubjectsServices.getList(query);
             if (subjects.length > 0) {
                 return commonResponse.success(res, "SUBJECT_LIST", 200, subjects);
             }
@@ -22,6 +23,7 @@ class subjectsController {
             }
             return commonResponse.success(res, "SUBJECT_NOT_FOUND", 200, {});
         } catch (error) {
+            logger.error(error);
             return commonResponse.error(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500);
         }
     }
