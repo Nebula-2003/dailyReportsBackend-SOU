@@ -1,4 +1,4 @@
-import messages from "./resources/messages.json" assert { type: "json" };
+import messages from "./resources/messages.js";
 
 const getMessage = (code, defaultcode) => (messages[code] ? messages[code] : messages[defaultcode]);
 
