@@ -56,31 +56,18 @@ class UsersService {
         //     }
         // }
         const data = await UsersModel.findOne(query).lean();
-        if (data) {
-            try {
-                cacheUsers.setByObj({ _id: data._id, email: data.email }, data);
-            } catch (error) {
-                logger.error(error);
-            }
-        }
+        // if (data) {
+        //     try {
+        //         cacheUsers.setByObj({ _id: data._id, email: data.email }, data);
+        //     } catch (error) {
+        //         logger.error(error);
+        //     }
+        // }
         return data;
     }
 
     static async list(query) {
-        try {
-            const cData = cacheUsers.getByQuery(query);
-            if (cData) return cData;
-        } catch (e) {
-            console.log(e);
-        }
         const data = await UsersModel.find(query).lean();
-        if (data) {
-            try {
-                cacheUsers.setByObj(query, data);
-            } catch (error) {
-                logger.error(error);
-            }
-        }
         return data;
     }
 

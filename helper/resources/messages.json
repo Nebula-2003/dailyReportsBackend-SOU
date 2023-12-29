@@ -28,5 +28,7 @@
     "SUBJECT_DELETED": "Subject deleted successfully",
     "SUBJECT_DETAIL": "Subject detail fetched successfully",
     "SUBECT_NOT_FOUND": "Subject not found",
-    "SUBJECT_ALREADY_EXIST": "Subject already exist"
+    "SUBJECT_ALREADY_EXIST": "Subject already exist",
+
+    "TIME_SHEET_GET": "Time sheet fetched successfully"
 }

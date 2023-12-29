@@ -33,6 +33,7 @@ const isAuthorized = (users) => async (req, res, next) => {
     const isVerify = verifyJWT(req, res);
     if (isVerify) {
         const user = await Users.get(req.user.id);
+        console.log("🚀 ~ file: guards.js:36 ~ isAuthorized ~ user:", user);
 
         if (!user) {
             return commonResponse.unAuthentication(res, {}, "USER_NOT_FOUND");
@@ -40,8 +41,10 @@ const isAuthorized = (users) => async (req, res, next) => {
 
         const allowedRoles = ["hod", "teaching_staff", "admin"];
         const role = req.user.role;
+        console.log("🚀 ~ file: guards.js:46 ~ isAuthorized ~ allowedRoles.includes(user.role):", allowedRoles.includes(user.role));
+        console.log("🚀 ~ file: guards.js:48 ~ isAuthorized ~ users.indexOf(role) > -1:", users.indexOf(role) > -1);
 
-        if (users.some((role) => allowedRoles.includes(role))) {
+        if (allowedRoles.includes(user.role)) {
             if (users.indexOf(role) > -1) {
                 next();
             } else {

@@ -1,6 +1,6 @@
-import _ from "lodash";
 import mongoose from "mongoose";
-let subjectWise = (userId) => [
+
+const subjectWise = (userId) => [
     {
         $match: {
             user: new mongoose.Types.ObjectId(userId),
@@ -40,17 +40,11 @@ let subjectWise = (userId) => [
     },
 ];
 
-let listForHod = () => [
+const subjectWiseArray = (userIdArray) => [
     {
-        $lookup: {
-            from: "users",
-            localField: "user",
-            foreignField: "_id",
-            as: "user",
+        $match: {
+            user: { $in: userIdArray.map((userId) => new mongoose.Types.ObjectId(userId)) },
         },
-    },
-    {
-        $unwind: "$user",
     },
     {
         $lookup: {
@@ -61,11 +55,8 @@ let listForHod = () => [
         },
     },
     {
-        $unwind: "$subject",
-    },
-    {
         $group: {
-            _id: "$user",
+            _id: "$subject",
             total: {
                 $sum: "$hours",
             },
@@ -76,7 +67,8 @@ let listForHod = () => [
     },
     {
         $project: {
-            user: "$_id",
+            subject: "$_id.subject_name",
+            subjectCode: "$_id.subject_code",
             total: 1,
             _id: 0,
         },
@@ -86,6 +78,6 @@ let listForHod = () => [
             total: -1,
         },
     },
-]
+];
 
-export { subjectWise };
+export { subjectWise, subjectWiseArray };
