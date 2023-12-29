@@ -3,9 +3,8 @@ import mongoose from "mongoose";
 const mongo_connection = () => {
     mongoose.set("debug", true);
     try {
-        console.log("here", process.env.DB_MONGO_URL);
         mongoose.connect(
-            process.env.DB_MONGO_URL || "mongodb://localhost:27017/boiler-plat",
+            process.env.MONGODB_URI || "mongodb://localhost:27017/boiler-plat",
             {
                 useNewUrlParser: true,
                 useFindAndModify: false,
