@@ -45,15 +45,16 @@ class UsersService {
         }
         return data;
     }
+
     static async findOneByQuery(query) {
-        if (query.email || query._id) {
-            try {
-                const cData = cacheUsers.getByQuery({ email: query.email });
-                if (cData) return cData;
-            } catch (e) {
-                console.log(e);
-            }
-        }
+        // if (query.email || query._id) {
+        //     try {
+        //         const cData = cacheUsers.getByQuery({ email: query.email });
+        //         if (cData) return cData;
+        //     } catch (e) {
+        //         console.log(e);
+        //     }
+        // }
         const data = await UsersModel.findOne(query).lean();
         if (data) {
             try {
@@ -64,6 +65,25 @@ class UsersService {
         }
         return data;
     }
+
+    static async list(query) {
+        try {
+            const cData = cacheUsers.getByQuery(query);
+            if (cData) return cData;
+        } catch (e) {
+            console.log(e);
+        }
+        const data = await UsersModel.find(query).lean();
+        if (data) {
+            try {
+                cacheUsers.setByObj(query, data);
+            } catch (error) {
+                logger.error(error);
+            }
+        }
+        return data;
+    }
+
     static async save(reqBody) {
         return await new UsersModel(reqBody).save();
     }

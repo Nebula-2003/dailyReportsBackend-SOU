@@ -22,6 +22,11 @@ router
     .get("/list", guard.isAuthorized(Object.values(ROLE)), controller.list)
 
     /*
+     *  List OF subordinates
+     */
+    .get("/list-for-hod", guard.isAuthorized(Object.values(ROLE)), controller.listHod)
+
+    /*
      *  Update
      */
     .put("/update/:id", guard.isAuthorized(ROLE.ADMIN), controller.update)

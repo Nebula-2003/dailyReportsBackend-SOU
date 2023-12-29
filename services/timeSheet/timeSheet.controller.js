@@ -1,4 +1,5 @@
 import Service from "./timeSheet.services.js";
+import UserServices from "../users/users.services.js";
 import { commonResponse } from "../../helper/index.js";
 import { subjectWise } from "./timeSheet.db.aggregation.js";
 
@@ -46,9 +47,30 @@ class timeSheet {
             if (req.query.aggregate === "subjectWise") {
                 list = await Service.aggregate(subjectWise(req.user.id));
             } else {
-                list = await Service.list();
+                list = await Service.list({ user: req.user.id });
             }
+            if (list) {
+                return commonResponse.success(res, "TIME_SHEET_GET", 200, list, "Success");
+            } else {
+                return commonResponse.customResponse(res, "SERVER_ERROR", 400, {}, "Something went wrong, Please try again");
+            }
+        } catch (error) {
+            return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
+        }
+    }
+    /**
+     * List For hod
+     */
 
+    static async listHod(req, res, next) {
+        try {
+            let subordinates = await UserServices.list({ hod: req.user.id });
+            if (!subordinates) {
+                return commonResponse.success(res, "TIME_SHEET_GET", 200, [], "Success");
+            }
+            if (req.query.aggregate === "subjectWise") {
+                let list = await Service.list({ user: { $in: subordinates.map((sub) => sub._id) } });
+            }
             if (list) {
                 return commonResponse.success(res, "TIME_SHEET_GET", 200, list, "Success");
             } else {
