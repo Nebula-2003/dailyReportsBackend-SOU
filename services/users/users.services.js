@@ -22,7 +22,7 @@ class UsersService {
             try {
                 cacheUsers.setByObj({ _id: data._id, email: data.email }, data);
             } catch (error) {
-                logger.error(error);
+                console.log(error);
             }
         }
         return data;
@@ -40,7 +40,7 @@ class UsersService {
             try {
                 cacheUsers.setByObj({ _id: data._id, email: data.email }, data);
             } catch (error) {
-                logger.error(error);
+                console.log(error);
             }
         }
         return data;
@@ -60,7 +60,7 @@ class UsersService {
         //     try {
         //         cacheUsers.setByObj({ _id: data._id, email: data.email }, data);
         //     } catch (error) {
-        //         logger.error(error);
+        //         console.log(error);
         //     }
         // }
         return data;
@@ -88,7 +88,7 @@ class UsersService {
                     fs.unlinkSync(path.join(__dirname, "./../../public", user.image));
                 }
             } catch (error) {
-                logger.error(error);
+                console.log(error);
             }
         }
         const data = await UsersModel.findOneAndUpdate({ _id: id }, { $set: reqBody }, { new: true }).lean();
@@ -96,7 +96,7 @@ class UsersService {
             try {
                 cacheUsers.setByObj({ _id: data._id, email: data.email }, data);
             } catch (error) {
-                logger.error(error);
+                console.log(error);
             }
         }
         return data;

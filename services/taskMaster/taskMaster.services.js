@@ -28,14 +28,14 @@ class taskMaster {
                 return cData;
             }
         } catch (error) {
-            logger.error("Error while getting list for taskMaster", error);
+            console.log("Error while getting list for taskMaster", error);
         }
         let listAll = await TaskMasterModel.find(query).lean();
         try {
             const success = taskMasterCacheList.setByObj(query, listAll);
             if (!success) throw new Error("Getting Success false while setting list for taskMaster");
         } catch (error) {
-            logger.error("Error while setting list for taskMaster:", error);
+            console.log("Error while setting list for taskMaster:", error);
         }
         return listAll;
     }

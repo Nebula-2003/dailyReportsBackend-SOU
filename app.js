@@ -15,31 +15,31 @@ import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+// global.logger = winston.createLogger({
+//     level: "info",
+//     format: winston.format.combine(
+//         winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
+//         winston.format.printf((info) => `${info.timestamp} [${info.level}] : ${info.message}`)
+//     ),
+//     defaultMeta: { service: "user-service" },
+//     transports: [
+//         new winston.transports.File({
+//             name: "file.info",
+//             filename: "./logs/info.log",
+//             level: "info",
+//             maxsize: 1024 * 1024 * 1, // Bytes
+//             maxFiles: 5,
+//         }),
+//         new winston.transports.File({
+//             name: "file.error",
+//             filename: "./logs/error.log",
+//             level: "error",
+//             maxsize: 1024 * 1024 * 1, // Bytes
+//             maxFiles: 5,
+//         }),
+//     ],
+// });
 
-global.logger = winston.createLogger({
-    level: "info",
-    format: winston.format.combine(
-        winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
-        winston.format.printf((info) => `${info.timestamp} [${info.level}] : ${info.message}`)
-    ),
-    defaultMeta: { service: "user-service" },
-    transports: [
-        new winston.transports.File({
-            name: "file.info",
-            filename: "./logs/info.log",
-            level: "info",
-            maxsize: 1024 * 1024 * 1, // Bytes
-            maxFiles: 5,
-        }),
-        new winston.transports.File({
-            name: "file.error",
-            filename: "./logs/error.log",
-            level: "error",
-            maxsize: 1024 * 1024 * 1, // Bytes
-            maxFiles: 5,
-        }),
-    ],
-});
 
 const app = express();
 

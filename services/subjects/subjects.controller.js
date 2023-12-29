@@ -23,7 +23,7 @@ class subjectsController {
             }
             return commonResponse.success(res, "SUBJECT_NOT_FOUND", 200, {});
         } catch (error) {
-            logger.error(error);
+            console.log(error);
             return commonResponse.error(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500);
         }
     }

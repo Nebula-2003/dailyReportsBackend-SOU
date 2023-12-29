@@ -8,11 +8,11 @@ class SubjectsServices {
         const data = await SubjectsModel.findOne({
             subject_code: reqBody.subject_code,
         }).lean();
-        if(data){
+        if (data) {
             try {
                 cacheSubjects.setByObj({ subject_code: data.subject_code }, data);
             } catch (error) {
-                logger.error(error);
+                console.log(error);
             }
         }
         return data;
@@ -25,13 +25,13 @@ class SubjectsServices {
 
     static async getList(query) {
         const cData = cacheSubjectsList.getByObj(query);
-        if(cData) return cData;
+        if (cData) return cData;
         const data = await SubjectsModel.find().lean();
-        if(data){
+        if (data) {
             try {
                 cacheSubjectsList.setByObj(query, data);
             } catch (error) {
-                logger.error(error);
+                console.log(error);
             }
         }
         return data;
@@ -42,12 +42,12 @@ class SubjectsServices {
         if (cData) {
             return cData;
         }
-        const data  = await SubjectsModel.findOne({ _id: id }).lean();
-        if(data){
+        const data = await SubjectsModel.findOne({ _id: id }).lean();
+        if (data) {
             try {
                 cacheSubjects.setByObj({ _id: data._id, subject_code: data.subject_code }, data);
             } catch (error) {
-                logger.error(error);
+                console.log(error);
             }
         }
         return data;
@@ -61,11 +61,11 @@ class SubjectsServices {
             console.log(e);
         }
         const data = await SubjectsModel.findOneAndUpdate({ _id: id }, { $set: reqBody }, { new: true }).lean();
-        if(data){
+        if (data) {
             try {
                 cacheSubjects.setByObj({ _id: data._id, subject_code: data.subject_code }, data);
             } catch (error) {
-                logger.error(error);
+                console.log(error);
             }
         }
         return data;
