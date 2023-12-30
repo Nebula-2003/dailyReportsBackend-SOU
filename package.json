@@ -7,7 +7,9 @@
         "start": "pm2 start ecosystem.config.cjs --env local && pm2 logs --env local",
         "restart": "pm2 restart ecosystem.config.cjs --env local",
         "stop": "pm2 stop ecosystem.config.cjs --env local",
-        "delete": "pm2 delete ecosystem.config.cjs  --env local"
+        "delete": "pm2 delete ecosystem.config.cjs  --env local",
+        "build": "babel src -d dist",
+        "vercel-build": "echo 'vercel-build'"
     },
     "dependencies": {
         "@babel/core": "^7.23.3",
@@ -21,6 +23,7 @@
         "ejs": "~3.1.6",
         "express": "~4.16.1",
         "express-fileupload": "^1.4.3",
+        "firebase-admin": "^12.0.0",
         "google-libphonenumber": "^3.2.22",
         "http-errors": "~1.6.3",
         "joi": "^17.4.2",
