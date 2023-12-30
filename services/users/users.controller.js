@@ -17,10 +17,10 @@ class UsersController {
                 return next(new Error("EMAIL_EXIST"));
             }
 
-            if (req.files != undefined && req.files.image != undefined) {
-                let location = fileUpload.uploadFile("user-profile", req.files.image);
-                req.body.image = `/storage/${location}`;
-            }
+            // if (req.files != undefined && req.files.image != undefined) {
+            //     let location = fileUpload.uploadFile("user-profile", req.files.image);
+            //     req.body.image = `/storage/${location}`;
+            // }
 
             req.body.password = await commonFunctions.encryptStringCrypt(req.body.password);
 
@@ -237,9 +237,9 @@ class UsersController {
      */
     static async update(req, res, next) {
         try {
-            if (req.files != undefined && req.files.image != undefined) {
-                req.body.image = process.env.DOMAIN_URL + "/user-profile/" + req.files.image[0].filename;
-            }
+            // if (req.files != undefined && req.files.image != undefined) {
+            //     req.body.image = process.env.DOMAIN_URL + "/user-profile/" + req.files.image[0].filename;
+            // }
             if (req.body.password) {
                 req.body.password = await commonFunctions.encryptStringCrypt(req.body.password);
             }
