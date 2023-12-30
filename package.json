@@ -7,9 +7,7 @@
         "start": "pm2 start ecosystem.config.cjs --env local && pm2 logs --env local",
         "restart": "pm2 restart ecosystem.config.cjs --env local",
         "stop": "pm2 stop ecosystem.config.cjs --env local",
-        "delete": "pm2 delete ecosystem.config.cjs  --env local",
-        "build": "babel src -d dist",
-        "vercel-build": "echo 'vercel-build'"
+        "delete": "pm2 delete ecosystem.config.cjs  --env local"
     },
     "dependencies": {
         "@babel/core": "^7.23.3",
