@@ -11,15 +11,15 @@ class timeSheet {
     /**
      * Get
      */
-    static async get(id) {
-        return await TimeSheetModel.findOne({ _id: id }).sort({ created_at: -1 }).lean();
+    static async get(id, populateFields) {
+        return await TimeSheetModel.findById(id).populate(populateFields).lean();
     }
 
     /**
      * List
      */
-    static async list(query) {
-        return await TimeSheetModel.find(query).lean();
+    static async list(query, populateFields) {
+        return await TimeSheetModel.find(query).populate(populateFields).lean();
     }
 
     /**

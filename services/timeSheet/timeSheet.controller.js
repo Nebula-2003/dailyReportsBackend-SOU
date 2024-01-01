@@ -47,7 +47,17 @@ class timeSheet {
             if (req.query.aggregate === "subjectWise") {
                 list = await Service.aggregate(subjectWise(req.user.id));
             } else {
-                list = await Service.list({ user: req.user.id });
+                let populateFields = [
+                    {
+                        path: "project",
+                        select: "name email",
+                    },
+                    {
+                        path: "subject",
+                        select: "subject_name",
+                    },
+                ];
+                list = await Service.list({ user: req.user.id }, populateFields);
             }
             if (list) {
                 return commonResponse.success(res, "TIME_SHEET_GET", 200, list, "Success");
