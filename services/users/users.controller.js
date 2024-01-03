@@ -12,7 +12,7 @@ class UsersController {
     static async register(req, res, next) {
         try {
             req.body.email = req.body.email;
-            let is_exist = await UsersService.is_exist(req.body.toLowerCase());
+            let is_exist = await UsersService.is_exist(req.body);
             if (is_exist) {
                 return next(new Error("EMAIL_EXIST"));
             }

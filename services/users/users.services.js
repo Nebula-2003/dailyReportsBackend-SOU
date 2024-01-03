@@ -12,15 +12,15 @@ const __dirname = dirname(__filename);
 class UsersService {
     static async is_exist(reqBody) {
         try {
-            const cData = cacheUsers.getByObj({ email: reqBody.email });
+            const cData = cacheUsers.getByObj({ email: reqBody.email.toLowerCase() });
             if (cData) return cData;
         } catch (e) {
             console.log(e);
         }
-        const data = await UsersModel.findOne({ email: reqBody.email }).lean();
+        const data = await UsersModel.findOne({ email: reqBody.email.toLowerCase() }).lean();
         if (data) {
             try {
-                cacheUsers.setByObj({ _id: data._id, email: data.email }, data);
+                cacheUsers.setByObj({ _id: data._id, email: data.email.toLowerCase() }, data);
             } catch (error) {
                 console.log(error);
             }
