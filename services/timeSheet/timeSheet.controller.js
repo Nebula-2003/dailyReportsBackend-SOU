@@ -47,6 +47,13 @@ class timeSheet {
             if (req.query.aggregate === "subjectWise") {
                 list = await Service.aggregate(subjectWise(req.user.id));
             } else {
+                let query = { user: req.user.id, date: {} };
+                if (req.query.startDate) {
+                    query.date.$gte = new Date(req.query.startDate);
+                }
+                if (req.query.endDate) {
+                    query.date.$lte = new Date(req.query.endDate);
+                }
                 let populateFields = [
                     {
                         path: "project",
@@ -57,7 +64,7 @@ class timeSheet {
                         select: "subject_name",
                     },
                 ];
-                list = await Service.list({ user: req.user.id }, populateFields);
+                list = await Service.list(query, populateFields);
             }
             if (list) {
                 return commonResponse.success(res, "TIME_SHEET_GET", 200, list, "Success");
