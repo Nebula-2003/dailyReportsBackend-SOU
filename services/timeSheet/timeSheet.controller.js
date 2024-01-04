@@ -54,6 +54,9 @@ class timeSheet {
                 if (req.query.endDate) {
                     query.date.$lte = new Date(req.query.endDate);
                 }
+                if (!Object.keys(query.date).length) {
+                    delete query.date;
+                }
                 let populateFields = [
                     {
                         path: "project",
