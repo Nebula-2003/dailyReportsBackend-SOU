@@ -26,7 +26,7 @@ class SubjectsServices {
     static async getList(query) {
         const cData = cacheSubjectsList.getByObj(query);
         if (cData) return cData;
-        const data = await SubjectsModel.find().lean();
+        const data = await SubjectsModel.find(query).lean();
         if (data) {
             try {
                 cacheSubjectsList.setByObj(query, data);

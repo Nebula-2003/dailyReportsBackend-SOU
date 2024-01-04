@@ -1,17 +1,27 @@
 import SubjectsServices from "./subjects.services.js";
+import UsersServices from "../users/users.services.js";
 import { commonResponse } from "../../helper/index.js";
 
 class subjectsController {
     static async getList(req, res, next) {
         try {
             let query = {};
+            let user = await UsersServices.get(req.user.id);
+            console.log("🚀 ~ file: subject", req.query.all === undefined || req.query.all === "false");
+            if (req.query.all === undefined || req.query.all === "false") {
+                if (user.subjects === undefined || user.subjects.length === 0) {
+                    return commonResponse.success(res, "SUBJECT_NOT_FOUND", 200, {});
+                }
+                query = { $in: user.subjects };
+            }
             const subjects = await SubjectsServices.getList(query);
             if (subjects.length > 0) {
                 return commonResponse.success(res, "SUBJECT_LIST", 200, subjects);
             }
             return commonResponse.success(res, "SUBECT_NOT_FOUND", 200, {});
         } catch (error) {
-            return commonResponse.error(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500);
+            console.log("🚀 ~ file: subjects.controller.js:23 ~ subjectsController ~ getList ~ error:", error);
+            return commonResponse.error(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, error.message);
         }
     }
 

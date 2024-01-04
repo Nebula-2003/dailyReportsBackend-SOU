@@ -23,6 +23,7 @@ const a = {
     NOT_FOUND: "Wrong Route!!",
 
     SUBJECT_LIST: "Subject list fetched successfully",
+    SUBJECT_NOT_FOUND: "Subject not found",
     SUBJECT_CREATED: "Subject created successfully",
     SUBJECT_UPDATED: "Subject updated successfully",
     SUBJECT_DELETED: "Subject deleted successfully",
