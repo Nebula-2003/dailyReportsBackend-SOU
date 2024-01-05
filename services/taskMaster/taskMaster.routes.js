@@ -9,7 +9,7 @@ router
     /*
      *  Add
      */
-    .post("/create", guard.isAuthorized(ROLE.ADMIN), controller.create)
+    .post("/create", guard.isAuthorized(Object.values(ROLE)), controller.create)
 
     /*
      *  Get By Id
