@@ -12,7 +12,7 @@ class subjectsController {
                 if (user.subjects === undefined || user.subjects.length === 0) {
                     return commonResponse.success(res, "SUBJECT_NOT_FOUND", 200, {});
                 }
-                query = { subjects: { $in: user.subjects } };
+                query = { _id: { $in: user.subjects } };
             }
             const subjects = await SubjectsServices.getList(query);
             if (subjects.length > 0) {
