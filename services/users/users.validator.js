@@ -1,5 +1,6 @@
 import Joi from "joi";
 import { ROLE, DEVICE_TYPE } from "../../config/constant.config.js";
+
 const userSchema = Joi.object({
     email: Joi.string().email().required(),
     password: Joi.string().min(6).required(),

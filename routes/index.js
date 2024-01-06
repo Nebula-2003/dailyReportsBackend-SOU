@@ -4,6 +4,7 @@ import project from "../services/project/index.js";
 import taskMaster from "../services/taskMaster/index.js";
 import taskType from "../services/taskType/index.js";
 import timeSheet from "../services/timeSheet/index.js";
+import tasks from "../services/tasks/index.js";
 
 const initialize = (app) => {
     app.use("/api/users", user.usersRoutes);
@@ -12,6 +13,7 @@ const initialize = (app) => {
     app.use("/api/taskMaster", taskMaster.taskMasterRoutes);
     app.use("/api/taskType", taskType.taskTypeRoutes);
     app.use("/api/timeSheet", timeSheet.timeSheetRoutes);
+    app.use("/api/tasks", tasks.tasksRoutes);
     app.use("/authError", (req, res, next) => next(new Error("DEFAULT_AUTH")));
 
     app.get("/ping", (req, res) => {
