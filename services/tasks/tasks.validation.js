@@ -7,6 +7,7 @@ const create = Joi.object({
     description: Joi.string().required(),
     status: Joi.string().valid("New_Assigned", "In_Progress", "Completed").default("New_Assigned"),
     priority: Joi.string().valid("high", "medium", "low").default("low"),
+    type: Joi.string().required(),
 });
 
 const update = Joi.object({
