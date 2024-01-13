@@ -1,11 +1,9 @@
-import { initializeApp } from "firebase-admin/app";
+import { initializeApp, cert } from "firebase-admin/app";
 import { getMessaging } from "firebase-admin/messaging";
-
-import serviceAccount from "../firebaseApi/fbAdminSdk.js";
-import e from "express";
+import serviceAccount from "../firebaseApi/fbAdminSdkConfig.js";
 
 const firebaseApp = initializeApp({
-    credential: admin.credential.cert(serviceAccount),
+    credential: cert(serviceAccount),
 });
 
 const messaging = getMessaging(firebaseApp);

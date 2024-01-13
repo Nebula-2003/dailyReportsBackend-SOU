@@ -32,6 +32,8 @@ const a = {
     SUBJECT_ALREADY_EXIST: "Subject already exist",
 
     TIME_SHEET_GET: "Time sheet fetched successfully",
+
+    USER_LIST: "User list fetched successfully",
 };
 
 export default a;

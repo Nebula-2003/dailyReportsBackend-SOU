@@ -30,6 +30,7 @@ router
 
     .get("/get/:id", guard.isAuthorized(Object.values(ROLE)), controller.getUserById)
 
-    .post("/logout", guard.isAuthorized(Object.values(ROLE)), controller.logout);
+    .post("/logout", guard.isAuthorized(Object.values(ROLE)), controller.logout)
 
+    .get("/get-staff-under", guard.isAuthorized(ROLE.HOD), controller.list);
 export default router;

@@ -29,11 +29,11 @@ router
     /*
      *  Update
      */
-    .put("/update/:id", guard.isAuthorized(ROLE.ADMIN), controller.update)
+    .put("/update/:id", guard.isAuthorized(Object.values(ROLE)), controller.update)
 
     /*
      *  Delete
      */
-    .delete("/delete/:id", guard.isAuthorized(ROLE.ADMIN), controller.delete);
+    .delete("/delete/:id", guard.isAuthorized(Object.values(ROLE)), controller.delete);
 
 export default router;

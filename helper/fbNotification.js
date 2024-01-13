@@ -6,7 +6,7 @@ export const sendNotification = async ({ token, title, body }) => {
             title: title,
             body: body,
         },
-        token: token,
+        token: "eA-HoWjaC9s:APA91bEJo7jxN6PUtSM78dlBLVwMDhFg4I7TmAIO77vanqDWtxwGbpwvgvC0j8TPjX4tjqJgxHZl1T0L3lxcKfrzn1hJssbbPiXVc0Jua6qjRzkMN-jK6JlgCOC7MAoHOwJzml5gG8Ui",
     };
 
     try {

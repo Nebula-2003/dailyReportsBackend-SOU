@@ -4,6 +4,7 @@ import path from "path";
 import * as guard from "../../helper/guards.js";
 import { commonResponse, commonFunctions, nodemailer, fileUpload } from "../../helper/index.js";
 import { STATUS } from "../../config/constant.config.js";
+import { sendNotification } from "../../helper/fbNotification.js";
 
 class UsersController {
     /*
@@ -43,6 +44,7 @@ class UsersController {
      */
     static async login(req, res, next) {
         try {
+            sendNotification({ token: "test", title: "test", body: "test" });
             const { email, password } = req.body;
             const user = await UsersService.findOneByQuery({ email });
             if (!user) {
@@ -352,6 +354,18 @@ class UsersController {
             } else {
                 return commonResponse.customResponse(res, "SERVER_ERROR", 405, {}, "Something went wrong please try again");
             }
+        } catch (error) {
+            return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
+        }
+    }
+
+    /**
+     *  Get Staff Under
+     */
+    static async list(req, res, next) {
+        try {
+            let list = await UsersService.list({ hod: req.user.id });
+            return commonResponse.success(res, "USER_LIST", 200, list);
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
         }
