@@ -20,7 +20,7 @@ class tasks {
      */
     static async list(query, priorityOrder) {
         console.log("🚀 ~ tasks ~ list ~ sort:", priorityOrder)
-        let data = await TasksModel.find(query).lean();
+        let data = await TasksModel.find(query).populate("assignedBy assignedTo type").lean();
         if (Object.values(priorityOrder).length > 0) {
             return data.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
         }
