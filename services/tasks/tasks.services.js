@@ -18,9 +18,10 @@ class tasks {
     /**
      * List
      */
-    static async list(query, sort) {
+    static async list(query, priorityOrder) {
+        console.log("🚀 ~ tasks ~ list ~ sort:", priorityOrder)
         let data = await TasksModel.find(query).lean();
-        if (sort) {
+        if (Object.values(priorityOrder).length > 0) {
             return data.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
         }
         return data;
