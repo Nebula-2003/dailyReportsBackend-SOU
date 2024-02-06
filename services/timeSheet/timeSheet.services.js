@@ -19,7 +19,24 @@ class timeSheet {
      * List
      */
     static async list(query, populateFields) {
-        return await TimeSheetModel.find(query).populate(populateFields).lean();
+        let limit,skip;
+        if (query.limit && query.limit != "") {
+            limit = parseInt(query.limit);
+          } else {
+            limit = 10;
+          }
+        
+          if (query.page && query.page != "") {
+            let page = parseInt(query.page);
+            page = page - 1;
+            skip = page * limit;
+          } else {
+            skip = 0;
+          }
+          delete query.limit;
+          delete query.page;
+
+        return await TimeSheetModel.find(query).populate(populateFields).limit(limit).skip(skip).lean();
     }
 
     /**
@@ -33,7 +50,7 @@ class timeSheet {
      * Delete
      */
     static async delete(id) {
-        return await TimeSheetModel.findByIdAndDelete({ _id: id }).lean();
+        return await TimeSheetModel.findByIdAndDelete({ _id: id });
     }
 
     /**
