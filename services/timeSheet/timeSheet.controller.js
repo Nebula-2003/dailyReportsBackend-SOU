@@ -48,8 +48,8 @@ class timeSheet {
                 list = await Service.aggregate(subjectWise(req.user.id));
             } else {
                 let query = { user: req.user.id, date: {} };
-                query.limit = req.query.limit || "";
-                query.page = req.query.page || "";
+                query.limit = req.query.limit || 10;
+                query.page = req.query.page || 1;
                 if (req.query.startDate) {
                     query.date.$gte = new Date(req.query.startDate);
                 }
