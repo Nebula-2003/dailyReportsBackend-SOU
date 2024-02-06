@@ -364,7 +364,20 @@ class UsersController {
      */
     static async list(req, res, next) {
         try {
+            if (req.uers.role == "admin") req.user.id = req.query.hod;
             let list = await UsersService.list({ hod: req.user.id });
+            return commonResponse.success(res, "USER_LIST", 200, list);
+        } catch (error) {
+            return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
+        }
+    }
+
+    /**
+     *  Get List Of Hod
+     */
+    static async listOfHod(req, res, next) {
+        try {
+            let list = await UsersService.list({ role: "hod" });
             return commonResponse.success(res, "USER_LIST", 200, list);
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
