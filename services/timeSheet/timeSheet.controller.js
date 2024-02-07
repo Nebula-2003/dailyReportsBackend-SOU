@@ -133,11 +133,10 @@ class timeSheet {
     static async delete(req, res, next) {
         try {
             let deleteTerms = await Service.delete(req.params.id);
-            if (deleteTerms) {
-                return commonResponse.success(res, "TIME_SHEET_DELETE", 200, deleteTerms, "Success");
-            } else {
+            if (!deleteTerms) {
                 return commonResponse.customResponse(res, "SERVER_ERROR", 400, {}, "Something went wrong, Please try again");
             }
+            return commonResponse.success(res, "TIME_SHEET_DELETE", 200, deleteTerms, "Success");
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
         }

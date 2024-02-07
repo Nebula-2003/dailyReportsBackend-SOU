@@ -38,7 +38,7 @@ class tasks {
      * Delete
      */
     static async delete(id) {
-        return await TasksModel.findByIdAndDelete({ _id: id }).lean();
+        return await TasksModel.findByIdAndDelete(id).lean();
     }
 }
 
