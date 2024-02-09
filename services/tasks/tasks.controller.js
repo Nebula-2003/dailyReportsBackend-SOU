@@ -7,6 +7,7 @@ class tasks {
      */
     static async create(req, res, next) {
         try {
+            req.body.assignedTo = req.body.assignedTo.split(",");
             let data = await Service.add(req.body);
             if (data) {
                 return commonResponse.success(res, "TASKS_CREATE", 200, data, "Success");
