@@ -247,7 +247,7 @@ class UsersController {
             }
             let updatedUser = await UsersService.update(req.user.id, req.body);
             if (updatedUser) {
-                return commonResponse.success(res, "USER_PROFILE_UPDATE", 201, updatedUser);
+                return commonResponse.success(res, "USER_PROFILE_UPDATE", 200, updatedUser);
             } else {
                 return commonResponse.customResponse(res, "USER_NOT_FOUND", 404, {}, "User not found, please try again");
             }

@@ -20,7 +20,7 @@ router
 
     .post("/reset-password", controller.resetPassword)
 
-    .put("/update", validateBody(updateUserSchema), guard.isAuthorized(Object.values(ROLE)), controller.update)
+    .put("/update/:id", validateBody(updateUserSchema), guard.isAuthorized(Object.values(ROLE)), controller.update)
 
     .delete("/delete/:id", guard.isAuthorized(ROLE.ADMIN), controller.delete)
 
@@ -38,5 +38,5 @@ router
 
     // .get("/admin-list", guard.isAuthorized(ROLE.ADMIN), controller.listOfAdmin)
 
-    .get("user-list", guard.isAuthorized(Object.values(ROLE)), controller.listOfUser)
+    .get("/user-list", guard.isAuthorized(Object.values(ROLE)), controller.listOfUser)
 export default router;
