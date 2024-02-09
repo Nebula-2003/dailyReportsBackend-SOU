@@ -38,5 +38,5 @@ router
 
     // .get("/admin-list", guard.isAuthorized(ROLE.ADMIN), controller.listOfAdmin)
 
-    .get("user-list", guard.isAuthorized(ROLE.ADMIN), controller.listOfUser)
+    .get("user-list", guard.isAuthorized(Object.values(ROLE)), controller.listOfUser)
 export default router;
