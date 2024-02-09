@@ -2,6 +2,7 @@ import Service from "./timeSheet.services.js";
 import UserServices from "../users/users.services.js";
 import { commonResponse } from "../../helper/index.js";
 import { subjectWise, subjectWiseArray } from "./timeSheet.db.aggregation.js";
+import { DateTime } from "luxon";
 
 class timeSheet {
     /**
@@ -51,10 +52,11 @@ class timeSheet {
                 query.limit = req.query.limit || 10;
                 query.page = req.query.page || 1;
                 if (req.query.startDate) {
-                    query.date.$gte = new Date(req.query.startDate);
+                    query.date.$gte = DateTime.fromISO(req.query.startDate).startOf("day").toJSDate();
+
                 }
                 if (req.query.endDate) {
-                    query.date.$lte = new Date(req.query.endDate);
+                    query.date.$lte = DateTime.fromISO(req.query.endDate).endOf("day").toJSDate();
                 }
                 if (!Object.keys(query.date).length) {
                     delete query.date;
