@@ -34,5 +34,9 @@ router
 
     .get("/get-staff-under", guard.isAuthorized(ROLE.HOD, ROLE.ADMIN), controller.list)
 
-    .get("/hod-list", guard.isAuthorized(ROLE.HOD), controller.listOfHod);
+    .get("/hod-list", guard.isAuthorized(ROLE.HOD), controller.listOfHod)
+
+    // .get("/admin-list", guard.isAuthorized(ROLE.ADMIN), controller.listOfAdmin)
+
+    .get("user-list", guard.isAuthorized(ROLE.ADMIN), controller.listOfUser)
 export default router;

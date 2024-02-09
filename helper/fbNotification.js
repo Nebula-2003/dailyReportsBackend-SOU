@@ -6,7 +6,7 @@ export const sendNotification = async ({ token, title, body }) => {
             title: title,
             body: body,
         },
-        token: "eA-HoWjaC9s:APA91bEJo7jxN6PUtSM78dlBLVwMDhFg4I7TmAIO77vanqDWtxwGbpwvgvC0j8TPjX4tjqJgxHZl1T0L3lxcKfrzn1hJssbbPiXVc0Jua6qjRzkMN-jK6JlgCOC7MAoHOwJzml5gG8Ui",
+        token: "dAxcGTLgfB7283JL3cs_yZ:APA91bH8iiqf9WpDXe5gHfQAgEfOyOgoQvi6fmWxXbcKCVInaTtVMC2qYYtM_rWsClsB-dTsVsydeU5ZUIefhsjfJrt1nfZ7z9ECFSVlIUUcAkcPLk5VdWaGNrgpR4ti0wlXJrwJkDHy",
     };
 
     try {
