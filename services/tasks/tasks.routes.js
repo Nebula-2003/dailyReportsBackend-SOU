@@ -11,7 +11,7 @@ router
     /*
      *  Add
      */
-    .post("/create", validateBody(create), guard.isAuthorized(Object.values(ROLE)), controller.create)
+    .post("/create", /*validateBody(create), */guard.isAuthorized(Object.values(ROLE)), controller.create)
 
     /*
      *  Get By Id
