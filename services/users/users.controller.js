@@ -390,7 +390,7 @@ class UsersController {
      */
     static async listOfUser(req, res, next) {
         try {
-            let list = await UsersService.list({ role: { $nin: "admin" } });
+            let list = await UsersService.list({ role: { $nin: ["admin", "hod"] } }, [{ path: "hod", select: "first_name last_name" }]);
             return commonResponse.success(res, "USER_LIST", 200, list);
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);

@@ -66,8 +66,8 @@ class UsersService {
         return data;
     }
 
-    static async list(query) {
-        const data = await UsersModel.find(query).lean();
+    static async list(query, populate = []) {
+        const data = await UsersModel.find(query).populate(populate).lean();
         return data;
     }
 
