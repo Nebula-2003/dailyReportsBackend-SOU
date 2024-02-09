@@ -364,7 +364,7 @@ class UsersController {
      */
     static async list(req, res, next) {
         try {
-            if (req.uers.role == "admin") req.user.id = req.query.hod;
+            if (req.user.role == "admin") req.user.id = req.query.hod;
             let list = await UsersService.list({ hod: req.user.id });
             return commonResponse.success(res, "USER_LIST", 200, list);
         } catch (error) {

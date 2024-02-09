@@ -3,7 +3,7 @@ import { ROLE, DEVICE_TYPE } from "../../config/constant.config.js";
 
 const userSchema = Joi.object({
     email: Joi.string().email().required(),
-    password: Joi.string().min(6).required(),
+    password: Joi.string().required(),
     first_name: Joi.string().required(),
     last_name: Joi.string().required(),
     number: Joi.string().default(""),
@@ -23,7 +23,7 @@ const userSchema = Joi.object({
 
 const updateUserSchema = Joi.object({
     email: Joi.string().email(),
-    password: Joi.string().min(6),
+    password: Joi.string(),
     first_name: Joi.string(),
     last_name: Joi.string(),
     number: Joi.string().default(""),
