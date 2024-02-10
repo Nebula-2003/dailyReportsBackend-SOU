@@ -245,7 +245,8 @@ class UsersController {
             if (req.body.password) {
                 req.body.password = await commonFunctions.encryptStringCrypt(req.body.password);
             }
-            let updatedUser = await UsersService.update(req.user.id, req.body);
+            let updatedUser = await UsersService.update(req.params.id, req.body);
+            console.log("🚀 ~ UsersController ~ update ~ updatedUser:", updatedUser)
             if (updatedUser) {
                 return commonResponse.success(res, "USER_PROFILE_UPDATE", 200, updatedUser);
             } else {

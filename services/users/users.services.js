@@ -29,40 +29,14 @@ class UsersService {
     }
 
     static async get(id) {
-        try {
-            const cData = cacheUsers.getByObj({ _id: id });
-            if (cData) return cData;
-        } catch (e) {
-            console.log(e);
-        }
         const data = await UsersModel.findOne({ _id: id }).lean();
-        if (data) {
-            try {
-                cacheUsers.setByObj({ _id: data._id, email: data.email }, data);
-            } catch (error) {
-                console.log(error);
-            }
-        }
         return data;
     }
 
     static async findOneByQuery(query) {
-        // if (query.email || query._id) {
-        //     try {
-        //         const cData = cacheUsers.getByQuery({ email: query.email });
-        //         if (cData) return cData;
-        //     } catch (e) {
-        //         console.log(e);
-        //     }
-        // }
+
         const data = await UsersModel.findOne(query).lean();
-        // if (data) {
-        //     try {
-        //         cacheUsers.setByObj({ _id: data._id, email: data.email }, data);
-        //     } catch (error) {
-        //         console.log(error);
-        //     }
-        // }
+
         return data;
     }
 
@@ -76,29 +50,7 @@ class UsersService {
     }
 
     static async update(id, reqBody) {
-        try {
-            cacheUsers.delByQuery({ _id: id });
-        } catch (e) {
-            console.log(e);
-        }
-        if (reqBody.image) {
-            try {
-                let user = await UsersModel.findOne({ _id: id }).lean();
-                if (user.image) {
-                    fs.unlinkSync(path.join(__dirname, "./../../public", user.image));
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        }
         const data = await UsersModel.findOneAndUpdate({ _id: id }, { $set: reqBody }, { new: true }).lean();
-        if (data) {
-            try {
-                cacheUsers.setByObj({ _id: data._id, email: data.email }, data);
-            } catch (error) {
-                console.log(error);
-            }
-        }
         return data;
     }
 
