@@ -53,10 +53,15 @@ class timeSheet {
                 query.page = req.query.page || 1;
                 if (req.query.startDate) {
                     query.date.$gte = DateTime.fromISO(req.query.startDate).startOf("day").toJSDate();
-
+                    if (!query.date.$gte.isValid) {
+                        query.date.$gte = DateTime.now().startOf("day").toJSDate();
+                    }
                 }
                 if (req.query.endDate) {
                     query.date.$lte = DateTime.fromISO(req.query.endDate).endOf("day").toJSDate();
+                    if (!query.date.$gte.isValid) {
+                        query.date.$gte = DateTime.now().endOf("day").toJSDate();
+                    }
                 }
                 if (!Object.keys(query.date).length) {
                     delete query.date;
